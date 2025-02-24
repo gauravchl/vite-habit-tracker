@@ -1,29 +1,33 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1 className="text-xl font-medium text-center py-2">Vite Habit Tracker</h1>
+
+      <div className="flex justify-center items-center border border-gray-400 rounded-sm p-4 max-w-[720px] mx-auto">
+        <div className="bg-slate-200 px-4 rounded-sm mt-6">
+          <div className="py-2">Wakeup 6 AM</div>
+          <div className="py-2">Reading</div>
+          <div className="py-2">Journaling</div>
+          <div className="py-2">Meditation</div>
+          <div className="py-2">Water 3L</div>
+        </div>
+
+        <div className="flex-1 flex flex-col mb-auto">
+          <div className="bg-slate-200 flex flex-row">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
   );
 }
