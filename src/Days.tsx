@@ -1,5 +1,5 @@
 import React from "react";
-import { format, differenceInCalendarDays, addDays, isToday } from "date-fns";
+import { format, differenceInCalendarDays, addDays, isToday, isFuture, isSameDay } from "date-fns";
 
 interface DaysProps {
   habits: { id: number; name: string }[];
@@ -24,10 +24,25 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
 
   return (
     <div className="flex-1 flex flex-col mb-auto overflow-scroll">
-      <div className="bg-slate-200 flex flex-row">
+      <div className="flex flex-row">
         {days.map((day, i) => (
-          <div key={i} className="flex-1 flex justify-center items-center border-r border-b border-gray-400">
-            <div className={`text-sm px-2 ${isToday(day) ? "underline text-blue-600" : ""}`}>{format(day, "E")}</div>
+          <div key={i} className={`flex-1 text-center ${isToday(day) ? "border border-slate-400 rounded pb-2" : ""}`}>
+            <div className={`flex justify-center items-center border-r border-b bg-slate-200 border-gray-400 text-sm px-2 ${isToday(day) ? "underline text-blue-600" : ""}`}>
+              {format(day, "E")}
+            </div>
+
+            {habits.map((habit) => (
+              <div className="flex items-center  justify-center py-3 relative" key={habit.id}>
+                <input
+                  id={habit.id.toString() + day.toISOString()}
+                  disabled={isFuture(format(day, "MM/dd/yyyy"))}
+                  type="checkbox"
+                  value=""
+                  className="w-4 h-4  bg-gray-100 border-gray-300 rounded"
+                />
+                <label htmlFor={habit.id.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
+              </div>
+            ))}
           </div>
         ))}
       </div>

@@ -3,11 +3,18 @@ import Days from "./Days";
 import Habits from "./Habits";
 
 const habits = [
-  { id: 1, name: "Wakeup 6 AM" },
-  { id: 2, name: "Reading" },
+  { id: 1, name: "Morning workout" },
+  { id: 2, name: "Meditation" },
   { id: 3, name: "Journaling" },
-  { id: 4, name: "Meditation" },
-  { id: 5, name: "Water 3L" },
+  { id: 4, name: "Reading" },
+  { id: 5, name: "Core workout" },
+  { id: 6, name: "Yoga" },
+  { id: 7, name: "Tradmil" },
+  { id: 8, name: "Gym" },
+  { id: 9, name: "Herb Shake" },
+  { id: 10, name: "Herb Afresh" },
+  { id: 11, name: "Omega3 + D3" },
+  { id: 12, name: "Water 3L" },
 ];
 
 const entries = [
