@@ -19,7 +19,7 @@ const habits = [
 
 const entries = [
   { habitId: 1, completedAt: "2025-02-25T12:00:00.000Z" },
-  { habitId: 2, completedAt: "2025-02-25T12:00:00.000Z" },
+  { habitId: 2, completedAt: "2022-02-25T12:00:00.000Z" },
   { habitId: 3, completedAt: "2025-02-25T12:00:00.000Z" },
   { habitId: 1, completedAt: "2025-02-22T12:00:00.000Z" },
   { habitId: 4, completedAt: "2025-02-25T12:00:00.000Z" },
@@ -28,7 +28,7 @@ const entries = [
 
 const HabitsContainer: React.FC = () => {
   return (
-    <div className="flex justify-center items-center border border-gray-400 rounded-sm p-4 mx-2">
+    <div className="flex justify-center items-center border border-gray-400 rounded-sm p-4 mx-2 mt-18">
       <Habits habits={habits} />
       <Days habits={habits} entries={entries} />
     </div>

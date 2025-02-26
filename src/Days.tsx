@@ -10,7 +10,6 @@ const currentDate: Date = new Date();
 
 const Days: React.FC<DaysProps> = ({ habits, entries }) => {
   const firstEntry = entries.sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime())[0] || null;
-  const lastEntry = entries.sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime())[0] || null;
 
   let daysToShow = 15;
   if (firstEntry) {
@@ -23,7 +22,7 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
   }
 
   return (
-    <div className="flex-1 flex flex-col mb-auto overflow-scroll">
+    <div className="flex-1 flex flex-col mb-auto overflow-auto">
       <div className="flex flex-row">
         {days.map((day, i) => (
           <div key={i} className={`flex-1 text-center ${isToday(day) ? "border border-slate-400 rounded pb-2" : ""}`}>
