@@ -15,22 +15,22 @@ const habits = [
   { id: 12, name: "Water 3L" },
 ];
 
-const entries = [
-  { habitId: 1, completedAt: "2025-02-25T12:00:00.000Z" },
-  { habitId: 2, completedAt: "2022-02-25T12:00:00.000Z" },
-  { habitId: 3, completedAt: "2025-02-25T12:00:00.000Z" },
-  { habitId: 1, completedAt: "2025-02-22T12:00:00.000Z" },
-  { habitId: 4, completedAt: "2025-02-25T12:00:00.000Z" },
-  { habitId: 2, completedAt: "2025-02-25T12:00:00.000Z" },
-];
+// const entries = [
+//   { habitId: 1, completedAt: "2025-02-25T12:00:00.000Z" },
+//   { habitId: 2, completedAt: "2022-02-25T12:00:00.000Z" },
+//   { habitId: 3, completedAt: "2025-02-25T12:00:00.000Z" },
+//   { habitId: 1, completedAt: "2025-02-22T12:00:00.000Z" },
+//   { habitId: 4, completedAt: "2025-02-25T12:00:00.000Z" },
+//   { habitId: 2, completedAt: "2025-02-25T12:00:00.000Z" },
+// ];
 
 export async function seedDatabase() {
   const habitCount = await db.habits.count();
   if (habitCount === 0) {
     await db.habits.bulkPut(habits);
   }
-  const entryCount = await db.entries.count();
-  if (entryCount === 0) {
-    await db.entries.bulkPut(entries);
-  }
+  // const entryCount = await db.entries.count();
+  // if (entryCount === 0) {
+  //   await db.entries.bulkPut(entries);
+  // }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { format, differenceInCalendarDays, addDays, isToday, isFuture } from "date-fns";
 
-import { Habit } from "../db";
+import db, { Habit } from "../db";
 
 interface DaysProps {
   habits: Habit[];
@@ -21,6 +21,12 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
     days.push(addDays(days[i - 1], 1));
   }
 
+  const handleEntryChange = async (checked: boolean, habitId?: number, completedAt?: string) => {
+    if (habitId === undefined || completedAt === undefined) return;
+    if (checked) await db.entries.add({ habitId, completedAt });
+    if (!checked) await db.entries.where({ habitId, completedAt }).delete();
+  };
+
   return (
     <div className="flex-1 flex flex-col mb-auto overflow-auto">
       <div className="flex flex-row">
@@ -33,13 +39,15 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
             {habits.map((habit) => (
               <div className="flex items-center  justify-center py-3 relative" key={habit.id}>
                 <input
-                  id={habit.id.toString() + day.toISOString()}
+                  id={habit?.id?.toString() + day.toISOString()}
                   disabled={isFuture(format(day, "MM/dd/yyyy"))}
                   type="checkbox"
                   value=""
+                  checked={!!entries.find((e) => e.habitId === habit.id && format(new Date(e.completedAt), "MM/dd/yyyy") === format(day, "MM/dd/yyyy"))?.completedAt}
                   className="w-4 h-4  bg-gray-100 border-gray-300 rounded"
+                  onChange={(e) => handleEntryChange(e.target.checked, habit.id, day.toISOString())}
                 />
-                <label htmlFor={habit.id.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
+                <label htmlFor={habit?.id?.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
               </div>
             ))}
           </div>
