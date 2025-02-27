@@ -1,5 +1,5 @@
 import React from "react";
-import { format, differenceInCalendarDays, addDays, isToday, isFuture } from "date-fns";
+import { format, differenceInCalendarDays, addDays, isToday, isFuture, subDays } from "date-fns";
 
 import db, { Habit } from "../db";
 
@@ -9,12 +9,12 @@ interface DaysProps {
 }
 
 const Days: React.FC<DaysProps> = ({ habits, entries }) => {
-  const firstEntry = entries.sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime())[0] || null;
+  let firstEntry = entries.sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime())[0] || null;
 
-  let daysToShow = 15;
-  if (firstEntry) {
-    daysToShow = differenceInCalendarDays(new Date(), new Date(firstEntry.completedAt)) + daysToShow;
-  }
+  // show atleast past 7 days
+  if (!firstEntry || new Date(firstEntry.completedAt) > subDays(new Date(), 7)) firstEntry = { completedAt: subDays(new Date(), 7).toISOString(), habitId: 0 };
+
+  const daysToShow = differenceInCalendarDays(new Date(), new Date(firstEntry.completedAt)) + 15;
 
   const days = [firstEntry ? new Date(firstEntry.completedAt) : new Date()];
   for (let i = 1; i < daysToShow; i++) {
@@ -36,20 +36,24 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
               {format(day, "E")}
             </div>
 
-            {habits.map((habit) => (
-              <div className="flex items-center  justify-center py-3 relative" key={habit.id}>
-                <input
-                  id={habit?.id?.toString() + day.toISOString()}
-                  disabled={isFuture(format(day, "MM/dd/yyyy"))}
-                  type="checkbox"
-                  value=""
-                  checked={!!entries.find((e) => e.habitId === habit.id && format(new Date(e.completedAt), "MM/dd/yyyy") === format(day, "MM/dd/yyyy"))?.completedAt}
-                  className="w-4 h-4  bg-gray-100 border-gray-300 rounded"
-                  onChange={(e) => handleEntryChange(e.target.checked, habit.id, day.toISOString())}
-                />
-                <label htmlFor={habit?.id?.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
-              </div>
-            ))}
+            {habits.map((habit) => {
+              const entry = entries.find((e) => e.habitId === habit.id && format(new Date(e.completedAt), "MM/dd/yyyy") === format(day, "MM/dd/yyyy"));
+
+              return (
+                <div className="flex items-center  justify-center py-3 relative" key={habit.id}>
+                  <input
+                    id={habit?.id?.toString() + day.toISOString()}
+                    disabled={isFuture(format(day, "MM/dd/yyyy"))}
+                    type="checkbox"
+                    value=""
+                    checked={!!entry}
+                    className="w-4 h-4  bg-gray-100 border-gray-300 rounded"
+                    onChange={(e) => handleEntryChange(e.target.checked, habit.id, entry?.completedAt || day.toISOString())}
+                  />
+                  <label htmlFor={habit?.id?.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>
