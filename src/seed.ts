@@ -1,6 +1,4 @@
-import React from "react";
-import Days from "./Days";
-import Habits from "./Habits";
+import db from "./db";
 
 const habits = [
   { id: 1, name: "Morning workout" },
@@ -26,13 +24,13 @@ const entries = [
   { habitId: 2, completedAt: "2025-02-25T12:00:00.000Z" },
 ];
 
-const HabitsContainer: React.FC = () => {
-  return (
-    <div className="flex justify-center items-center border border-gray-400 rounded-sm p-4 mx-2 mt-18">
-      <Habits habits={habits} />
-      <Days habits={habits} entries={entries} />
-    </div>
-  );
-};
-
-export default HabitsContainer;
+export async function seedDatabase() {
+  const habitCount = await db.habits.count();
+  if (habitCount === 0) {
+    await db.habits.bulkPut(habits);
+  }
+  const entryCount = await db.entries.count();
+  if (entryCount === 0) {
+    await db.entries.bulkPut(entries);
+  }
+}

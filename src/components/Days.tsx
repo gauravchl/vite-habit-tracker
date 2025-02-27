@@ -1,12 +1,12 @@
 import React from "react";
-import { format, differenceInCalendarDays, addDays, isToday, isFuture, isSameDay } from "date-fns";
+import { format, differenceInCalendarDays, addDays, isToday, isFuture } from "date-fns";
+
+import { Habit } from "../db";
 
 interface DaysProps {
-  habits: { id: number; name: string }[];
+  habits: Habit[];
   entries: { habitId: number; completedAt: string }[];
 }
-
-const currentDate: Date = new Date();
 
 const Days: React.FC<DaysProps> = ({ habits, entries }) => {
   const firstEntry = entries.sort((a, b) => new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime())[0] || null;

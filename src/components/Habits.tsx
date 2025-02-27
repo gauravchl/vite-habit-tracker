@@ -1,7 +1,9 @@
 import React from "react";
 
+import { Habit } from "../db";
+
 interface HabitsProps {
-  habits: { id: number; name: string }[];
+  habits: Habit[];
 }
 
 const Habits: React.FC<HabitsProps> = ({ habits }) => {
