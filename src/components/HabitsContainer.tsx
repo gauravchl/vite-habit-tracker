@@ -41,7 +41,7 @@ const HabitsContainer: React.FC = () => {
   });
 
   return (
-    <div className="flex justify-center items-center border border-gray-400 rounded-sm p-4 mx-2 mt-18">
+    <div className="flex justify-center items-center border border-gray-400 flex-1">
       <Habits habits={habits || []} />
       <Days habits={habits || []} entries={entries || []} />
     </div>
@@ -49,3 +49,7 @@ const HabitsContainer: React.FC = () => {
 };
 
 export default HabitsContainer;
+
+{
+  /* <h1 className="text-4xl font-medium text-center py-2 font-jm mt-8">Habit Tracker</h1>; */
+}

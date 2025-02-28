@@ -28,7 +28,7 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col mb-auto overflow-auto">
+    <div className="flex-1 flex flex-col mb-auto overflow-auto mt-12">
       <div className="flex flex-row">
         {days.map((day, i) => (
           <div key={i} className={`flex-1 text-center ${isToday(day) ? "border border-slate-400 rounded pb-2" : ""}`}>
@@ -40,14 +40,14 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
               const entry = entries.find((e) => e.habitId === habit.id && format(new Date(e.completedAt), "MM/dd/yyyy") === format(day, "MM/dd/yyyy"));
 
               return (
-                <div className="flex items-center  justify-center py-3 relative" key={habit.id}>
+                <div className="flex items-center  justify-center py-[10px] relative" key={habit.id}>
                   <input
                     id={habit?.id?.toString() + day.toISOString()}
                     disabled={isFuture(format(day, "MM/dd/yyyy"))}
                     type="checkbox"
                     value=""
                     checked={!!entry}
-                    className="w-4 h-4  bg-gray-100 border-gray-300 rounded"
+                    className="w-4 h-4"
                     onChange={(e) => handleEntryChange(e.target.checked, habit.id, entry?.completedAt || day.toISOString())}
                   />
                   <label htmlFor={habit?.id?.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
