@@ -16,7 +16,7 @@ const Habits: React.FC<HabitsProps> = ({ habits }) => {
 
       <div className="mt-4">
         {habits.map((habit) => (
-          <div key={habit.id} className="py-2">
+          <div key={habit.id} className="h-[42px] flex items-center">
             {habit.name}
           </div>
         ))}

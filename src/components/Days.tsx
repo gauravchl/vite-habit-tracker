@@ -38,24 +38,26 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
               <span className={`${isToday(day) ? "rounded-full bg-gray-200" : ""} text-xs p-1`}>{format(day, "d")}</span>
             </div>
 
-            {habits.map((habit) => {
-              const entry = entries.find((e) => e.habitId === habit.id && format(new Date(e.completedAt), "MM/dd/yyyy") === format(day, "MM/dd/yyyy"));
+            <div className="mt-4">
+              {habits.map((habit) => {
+                const entry = entries.find((e) => e.habitId === habit.id && format(new Date(e.completedAt), "MM/dd/yyyy") === format(day, "MM/dd/yyyy"));
 
-              return (
-                <div className="flex items-center  justify-center py-[10px] relative" key={habit.id}>
-                  <input
-                    id={habit?.id?.toString() + day.toISOString()}
-                    disabled={isFuture(format(day, "MM/dd/yyyy"))}
-                    type="checkbox"
-                    value=""
-                    checked={!!entry}
-                    className="w-4 h-4"
-                    onChange={(e) => handleEntryChange(e.target.checked, habit.id, entry?.completedAt || day.toISOString())}
-                  />
-                  <label htmlFor={habit?.id?.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
-                </div>
-              );
-            })}
+                return (
+                  <div className="h-[42px] flex items-center  justify-center relative" key={habit.id}>
+                    <input
+                      id={habit?.id?.toString() + day.toISOString()}
+                      disabled={isFuture(format(day, "MM/dd/yyyy"))}
+                      type="checkbox"
+                      value=""
+                      checked={!!entry}
+                      className="w-4 h-4"
+                      onChange={(e) => handleEntryChange(e.target.checked, habit.id, entry?.completedAt || day.toISOString())}
+                    />
+                    <label htmlFor={habit?.id?.toString() + day.toISOString()} className="absolute w-full h-full cursor-pointer hover:border hover:border-cyan-400 rounded"></label>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         ))}
       </div>
