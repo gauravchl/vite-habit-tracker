@@ -28,12 +28,14 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
   };
 
   return (
-    <div className="flex-1 flex flex-col mb-auto overflow-auto mt-12">
+    <div className="flex-1 flex flex-col mb-auto overflow-auto">
       <div className="flex flex-row">
         {days.map((day, i) => (
-          <div key={i} className={`flex-1 text-center ${isToday(day) ? "border border-slate-400 rounded pb-2" : ""}`}>
-            <div className={`flex justify-center items-center border-r border-b bg-slate-200 border-gray-400 text-sm px-2 ${isToday(day) ? "underline text-blue-600" : ""}`}>
-              {format(day, "E")}
+          <div key={i} className={`flex-1 text-center`}>
+            <div className={`flex flex-col justify-center items-center  text-sm px-2 bg-amber-50 py-1`}>
+              <span>{format(day, "E")}</span>
+
+              <span className={`${isToday(day) ? "rounded-full bg-gray-200" : ""} text-xs p-1`}>{format(day, "d")}</span>
             </div>
 
             {habits.map((habit) => {
