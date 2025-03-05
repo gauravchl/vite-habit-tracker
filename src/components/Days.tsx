@@ -35,7 +35,7 @@ const Days: React.FC<DaysProps> = ({ habits, entries }) => {
             <div className={`flex flex-col justify-center items-center  text-sm px-2 bg-amber-50 py-1`}>
               <span>{format(day, "E")}</span>
 
-              <span className={`${isToday(day) ? "rounded-full bg-gray-200" : ""} text-xs p-1`}>{format(day, "d")}</span>
+              <span className={`${isToday(day) ? "rounded-full bg-emerald-300" : ""} text-xs p-1`}>{format(day, "d")}</span>
             </div>
 
             <div className="mt-4">
